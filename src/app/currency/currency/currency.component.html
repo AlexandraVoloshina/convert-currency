@@ -1,0 +1,47 @@
+<div class="content">
+  <div>
+    <div class="input-group mb-3">
+      <input
+        #inputTo
+        type="text"
+        [value]="currencyFrom"
+        (input)="InputFrom()"
+        class="form-control"
+        aria-label="Amount (to the nearest dollar)"
+      >
+    </div>
+    <select
+      #fromTo
+      class="form-select"
+      (change)="selectCurrencyTo(fromTo.value)"
+      aria-label="Default select example"
+    >
+      <option value="UAH" selected>UAH</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+    </select>
+  </div>
+  <div>
+    <div class="input-group mb-3">
+      <input
+        #inputFrom
+        type="text"
+        [value]="currencyTo"
+        (input)="InputTo()"
+        class="form-control"
+        aria-label="Amount (to the nearest dollar)"
+      >
+    </div>
+    <select
+      #fromFrom
+      class="form-select"
+      (change)="selectCurrencyFrom(fromFrom.value)"
+      aria-label="Default select example"
+    >
+      <option value="USD" selected>USD</option>
+      <option value="UAH">UAH</option>
+      <option value="EUR">EUR</option>
+    </select>
+  </div>
+</div>
+
