@@ -17,9 +17,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this._currencyService.getCurrency().subscribe(data => {
-      this.currentyUSDtoUAH = data.rates.UAH / data.rates.USD;
-      this.currentyEURtoUAH = data.rates.UAH;
+      this.currentyUSDtoUAH = this.roundValue(data.rates.UAH / data.rates.USD);
+      this.currentyEURtoUAH = this.roundValue(data.rates.UAH);
     });
   }
 
+  roundValue = (value: number) => Math.round((value) * 100) / 100;
 }
