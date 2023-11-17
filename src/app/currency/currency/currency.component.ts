@@ -16,137 +16,31 @@ export class CurrencyComponent implements OnInit {
 
   currencyFrom: number = 0;
   currencyTo: number = 0;
-  EUR: number = 0;
-  USD: number = 0;
-  valueDefault: number = 0;
 
   constructor(public _currencyService: CurrencyService) {
   }
 
   ngOnInit(): void {
-    this._currencyService.getCurrency().subscribe(data => {
-      this.valueDefault = data.rates.USD / data.rates.UAH;
-      this.EUR = data.rates.UAH;
-      this.USD = data.rates.USD;
-    });
   }
 
-  roundValue = (value: number) => Math.round((value) * 100) / 100;
-
   InputFrom(){
-    if(this.fromTo.nativeElement.value === 'UAH'){
-      this.currencyTo = this.roundValue(this.valueDefault * +this.inputTo.nativeElement.value);
-    }
-    if(this.fromTo.nativeElement.value === 'USD'){
-      this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value);
-    }
-    if(this.fromTo.nativeElement.value === 'EUR'){
-      this.currencyTo = this.roundValue(+this.EUR);
-    }
+
+    let to  = this.fromTo.nativeElement.value;
+    let from = this.fromFrom.nativeElement.value;
+    let amount = this.inputTo.nativeElement.value;
+    this._currencyService.getCurrency(to, from, amount).then((resp: any) => {
+      this.currencyTo = resp.result;
+    });
 
   }
 
   InputTo(){
-    if(this.fromFrom.nativeElement.value === 'USD'){
-      this.currencyFrom = this.roundValue(this.valueDefault * +this.inputFrom.nativeElement.value);
-    }
-    if(this.fromFrom.nativeElement.value === 'UAH'){
-      this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value);
-    }
-    if(this.fromFrom.nativeElement.value === 'EUR'){
-      this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value * this.USD);
-    }
+  
+    let to  = this.fromFrom.nativeElement.value;
+    let from = this.fromTo.nativeElement.value;
+    let amount = this.inputFrom.nativeElement.value;
+    this._currencyService.getCurrency(to, from, amount).then((resp: any) => {
+      this.currencyFrom = resp.result;
+    });
   }
-
-  selectCurrencyFrom(value: string){
-    if(this.fromTo.nativeElement.value === 'UAH'){
-      switch (value) {
-        case 'USD':
-          this.currencyTo = this.roundValue(this.valueDefault * +this.inputTo.nativeElement.value);
-          break;
-        case 'EUR':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value / this.EUR);
-          break;
-        case 'UAH':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value);
-            break;
-        default: return;
-      }
-    }
-    if(this.fromTo.nativeElement.value === 'USD'){
-      switch (value) {
-        case 'USD':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value);
-          break;
-        case 'EUR':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value * this.USD);
-          break;
-        case 'UAH':
-          this.currencyTo = this.roundValue(this.valueDefault * +this.inputTo.nativeElement.value);
-            break;
-        default: return;
-      }
-    }
-    if(this.fromTo.nativeElement.value === 'EUR'){
-      switch (value) {
-        case 'USD':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value * this.USD);
-          break;
-        case 'EUR':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value);
-          break;
-        case 'UAH':
-          this.currencyTo = this.roundValue(+this.inputTo.nativeElement.value * +this.EUR);
-            break;
-        default: return;
-      }
-    }
-  }
-
-  selectCurrencyTo(value: string){
-    if(this.fromFrom.nativeElement.value === 'USD'){
-      switch (value) {
-        case 'USD':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value);
-          break;
-        case 'EUR':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value * this.USD);
-          break;
-        case 'UAH':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value);
-            break;
-        default: return;
-      }
-    }
-    if(this.fromFrom.nativeElement.value === 'UAH'){
-      switch (value) {
-        case 'USD':
-          this.currencyFrom = this.roundValue(this.valueDefault * +this.inputFrom.nativeElement.value);
-          break;
-        case 'EUR':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value * this.USD);
-          break;
-        case 'UAH':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value);
-            break;
-        default: return;
-      }
-    }
-    if(this.fromFrom.nativeElement.value === 'EUR'){
-      switch (value) {
-        case 'USD':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value * this.USD);
-          break;
-        case 'EUR':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value);
-          break;
-        case 'UAH':
-          this.currencyFrom = this.roundValue(+this.inputFrom.nativeElement.value * +this.EUR);
-            break;
-        default: return;
-      }
-    }
-
-  }
-
 }

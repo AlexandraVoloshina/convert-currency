@@ -9,11 +9,30 @@ export class CurrencyService {
 
   fromEURtoUAH: number = 0;
   fromEURtoUSD: number = 0;
+  headers: any;
 
-  constructor(public _http: HttpClient) { }
+  myHeaders: any = new Headers();
+  requestOptions: any;
+  
 
-  getCurrency(): Observable<any> {
-    //return this._http.get(`https://free.currconv.com/api/v7/convert?apiKey=cd2ff852330c08894153&q=${fromCurrency}_${toCurrency}&compact=ultra`);
-    return this._http.get('https://api.exchangerate.host/latest');
+  constructor(public _http: HttpClient) { 
+
+  this.myHeaders.append("apikey", "4gIAFidlJdqLsekjSB0fJDCvylCspCAb");
+
+  this.requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+    headers: this.myHeaders
+};
   }
+
+  getCurrency(from: string, to: string, amount: string){
+    return fetch(`https://api.apilayer.com/fixer/convert?to=${to}&from=${from}&amount=${amount}`, this.requestOptions)
+    .then(response => response.json())
+    .then(result => result)
+    .catch(error => console.log('error', error));
+  }
+  
+
+
 }

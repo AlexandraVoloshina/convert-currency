@@ -1,5 +1,5 @@
 <div class="content">
-  <div>
+  <div class="title">Курси валют</div>
     <div class="input-group mb-3">
       <input
         #inputTo
@@ -9,19 +9,17 @@
         class="form-control"
         aria-label="Amount (to the nearest dollar)"
       >
-    </div>
-    <select
+      <select
       #fromTo
       class="form-select"
-      (change)="selectCurrencyTo(fromTo.value)"
+      (change)="InputTo()"
       aria-label="Default select example"
     >
       <option value="UAH" selected>UAH</option>
       <option value="USD">USD</option>
       <option value="EUR">EUR</option>
     </select>
-  </div>
-  <div>
+    </div>
     <div class="input-group mb-3">
       <input
         #inputFrom
@@ -31,17 +29,16 @@
         class="form-control"
         aria-label="Amount (to the nearest dollar)"
       >
-    </div>
-    <select
+      <select
       #fromFrom
       class="form-select"
-      (change)="selectCurrencyFrom(fromFrom.value)"
+      (change)="InputFrom()"
       aria-label="Default select example"
     >
       <option value="USD" selected>USD</option>
       <option value="UAH">UAH</option>
       <option value="EUR">EUR</option>
     </select>
-  </div>
+    </div>
 </div>
 
