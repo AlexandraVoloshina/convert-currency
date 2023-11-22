@@ -8,39 +8,45 @@ import { CurrencyService } from '../currency.service';
 })
 export class CurrencyComponent implements OnInit {
 
-  @ViewChild('inputTo') inputTo: any;
-  @ViewChild('inputFrom') inputFrom: any;
+  to: string = 'UAH';
+  from: string = 'USD';
 
-  @ViewChild('fromTo') fromTo: any;
-  @ViewChild('fromFrom') fromFrom: any;
+  inputOne: string = '0';
+  inputTwo: string = '0';
 
-  currencyFrom: number = 0;
-  currencyTo: number = 0;
-
-  constructor(public _currencyService: CurrencyService) {
-  }
+  constructor(private _currencyService: CurrencyService) {}
 
   ngOnInit(): void {
   }
 
-  InputFrom(){
+  setCurrencyOne(value: string){
+    this.to = value;
+    this._currencyService.getCurrency(this.to, this.from, this.inputTwo)
+    .subscribe((resp: any) => {
+      this.inputOne = resp.result;
+    });
+  }
 
-    let to  = this.fromTo.nativeElement.value;
-    let from = this.fromFrom.nativeElement.value;
-    let amount = this.inputTo.nativeElement.value;
-    this._currencyService.getCurrency(to, from, amount).then((resp: any) => {
-      this.currencyTo = resp.result;
+  setCurrencyTwo(value: string){
+    this.from = value;
+    this._currencyService.getCurrency(this.to, this.from, this.inputOne)
+    .subscribe((resp: any) => {
+      this.inputTwo = resp.result;
+    });
+  }
+
+  InputFrom(){
+    this._currencyService.getCurrency(this.to, this.from, this.inputOne)
+    .subscribe((resp: any) => {
+      this.inputTwo = resp.result;
     });
 
   }
 
   InputTo(){
-  
-    let to  = this.fromFrom.nativeElement.value;
-    let from = this.fromTo.nativeElement.value;
-    let amount = this.inputFrom.nativeElement.value;
-    this._currencyService.getCurrency(to, from, amount).then((resp: any) => {
-      this.currencyFrom = resp.result;
+    this._currencyService.getCurrency(this.to, this.from, this.inputTwo)
+    .subscribe((resp: any) => {
+      this.inputOne = resp.result;
     });
   }
 }

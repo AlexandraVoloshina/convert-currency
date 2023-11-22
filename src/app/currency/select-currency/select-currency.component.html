@@ -1,0 +1,10 @@
+<select
+      #fromTo
+      class="form-select"
+      [ngModel]="value" 
+      (ngModelChange)="updateValue($event)"
+    >
+      <option value="UAH" selected>UAH</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+    </select>

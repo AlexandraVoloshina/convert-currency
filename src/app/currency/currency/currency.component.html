@@ -1,44 +1,28 @@
 <div class="content">
   <div class="title">Курси валют</div>
     <div class="input-group mb-3">
-      <input
-        #inputTo
-        type="text"
-        [value]="currencyFrom"
-        (input)="InputFrom()"
-        class="form-control"
-        aria-label="Amount (to the nearest dollar)"
-      >
-      <select
-      #fromTo
-      class="form-select"
-      (change)="InputTo()"
-      aria-label="Default select example"
-    >
-      <option value="UAH" selected>UAH</option>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-    </select>
+      <app-input-form 
+      class="form-control" 
+      [(ngModel)]="inputOne" 
+      (input)="InputFrom()"
+      ></app-input-form>
+      <app-select-currency 
+      class="form-select" 
+      [value]='to'
+      (onChangeValue)="setCurrencyOne($event)"
+      ></app-select-currency>
     </div>
     <div class="input-group mb-3">
-      <input
-        #inputFrom
-        type="text"
-        [value]="currencyTo"
-        (input)="InputTo()"
-        class="form-control"
-        aria-label="Amount (to the nearest dollar)"
-      >
-      <select
-      #fromFrom
-      class="form-select"
-      (change)="InputFrom()"
-      aria-label="Default select example"
-    >
-      <option value="USD" selected>USD</option>
-      <option value="UAH">UAH</option>
-      <option value="EUR">EUR</option>
-    </select>
+      <app-input-form 
+      class="form-control" 
+      [(ngModel)]="inputTwo" 
+      (input)="InputTo()"
+      ></app-input-form>
+      <app-select-currency 
+      class="form-select" 
+      [value]='from'
+      (onChangeValue)="setCurrencyTwo($event)"
+      ></app-select-currency>
     </div>
 </div>
 
